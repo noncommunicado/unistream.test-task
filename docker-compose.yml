@@ -1,0 +1,5 @@
+﻿name: kutumov-n-test
+services:
+  unistream.transaction.httpapi:
+    image: noncommunicado/unistream-test-4:latest
+    
