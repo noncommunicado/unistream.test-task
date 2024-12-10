@@ -18,6 +18,10 @@ internal static class SwaggerConfiguration
 
 			o.TagDescriptions = t => {
 				t["Connectivity"] = "Helper methods for connectivity checks";
+				t["Balance"] = "Client balance checks";
+				t["Debit"] = "Decrease balance methods";
+				t["Credit"] = "Increase balance methods";
+				t["Revert"] = "Revert transaction methods";
 			};
 		});
 		return builder;

@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unistream.Transaction.Services", "src\infrastructure\Unistream.Transaction.Services\Unistream.Transaction.Services.csproj", "{5C750D6C-224C-4175-8DB9-7CE37C431A35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unistream.Transaction.Commands", "src\infrastructure\Unistream.Transaction.Commands\Unistream.Transaction.Commands.csproj", "{58F3CFD4-7A74-4B69-976A-1999392C49D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,8 @@ Global
 		{540C158C-15CC-4F3B-99C3-84514CF37975} = {880F174B-C367-4F92-ADDC-057BBAFB9D3B}
 		{63DEA57F-55A1-47F2-83AD-7D23B1FF8ADA} = {540C158C-15CC-4F3B-99C3-84514CF37975}
 		{7F2B3A31-389A-4AEC-8DBF-894B1621E6A5} = {117FA4E8-EEDD-4951-BAC2-595BC7C54BB6}
+		{5C750D6C-224C-4175-8DB9-7CE37C431A35} = {540C158C-15CC-4F3B-99C3-84514CF37975}
+		{58F3CFD4-7A74-4B69-976A-1999392C49D3} = {540C158C-15CC-4F3B-99C3-84514CF37975}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F2AD826B-7A58-4072-B178-CABEC9E8AAA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -47,5 +53,13 @@ Global
 		{7F2B3A31-389A-4AEC-8DBF-894B1621E6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F2B3A31-389A-4AEC-8DBF-894B1621E6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F2B3A31-389A-4AEC-8DBF-894B1621E6A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C750D6C-224C-4175-8DB9-7CE37C431A35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C750D6C-224C-4175-8DB9-7CE37C431A35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C750D6C-224C-4175-8DB9-7CE37C431A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C750D6C-224C-4175-8DB9-7CE37C431A35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58F3CFD4-7A74-4B69-976A-1999392C49D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58F3CFD4-7A74-4B69-976A-1999392C49D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58F3CFD4-7A74-4B69-976A-1999392C49D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58F3CFD4-7A74-4B69-976A-1999392C49D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

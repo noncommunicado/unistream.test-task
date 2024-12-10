@@ -12,6 +12,11 @@
         <PackageReference Include="FastEndpoints.Attributes" Version="5.32.0"/>
         <PackageReference Include="FastEndpoints.Messaging.Core" Version="5.32.0"/>
         <PackageReference Include="FastEndpoints.Swagger" Version="5.32.0"/>
+        <PackageReference Include="KutCode.AutoMapper.Extensions" Version="1.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Serilog" Version="4.2.0"/>
         <PackageReference Include="Serilog.AspNetCore" Version="9.0.0"/>
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
@@ -19,7 +24,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\core\Unistream.Transaction.Domain\Unistream.Transaction.Domain.csproj"/>
-        <ProjectReference Include="..\..\infrastructure\Unistream.Transaction.Persistence\Unistream.Transaction.Persistence.csproj" />
+        <ProjectReference Include="..\..\infrastructure\Unistream.Transaction.Commands\Unistream.Transaction.Commands.csproj"/>
+        <ProjectReference Include="..\..\infrastructure\Unistream.Transaction.Persistence\Unistream.Transaction.Persistence.csproj"/>
+        <ProjectReference Include="..\..\infrastructure\Unistream.Transaction.Services\Unistream.Transaction.Services.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

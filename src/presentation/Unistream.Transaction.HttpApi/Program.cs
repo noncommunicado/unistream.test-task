@@ -1,6 +1,11 @@
+using AutoMapper;
 using FastEndpoints.Swagger;
 using Serilog;
+using Unistream.Transaction.Commands;
+using Unistream.Transaction.HttpApi;
 using Unistream.Transaction.HttpApi.Configuration;
+using Unistream.Transaction.Persistence;
+using Unistream.Transaction.Services;
 
 try {
 	await RunAsync();
@@ -13,7 +18,6 @@ finally {
 	Log.CloseAndFlush();
 }
 
-
 async Task RunAsync()
 {
 	var builder = WebApplication.CreateBuilder(args);
@@ -22,19 +26,27 @@ async Task RunAsync()
 		.ConfigureSwagger()
 		.ConfigureSerilogging();
 
+	builder.Services.AddPersistence(builder.Configuration.GetConnectionString("Main")!);
+	builder.Services.AddCommands();
+	builder.Services.AddServices();
+	builder.Services.AddAllMappings(); // automapper ext
+
 	var app = builder.Build();
 	app.UseRequestLocalization();
 	app.UseAuthentication();
 	app.UseAuthorization();
 
-	app.UseFastEndpoints(c => {
-		c.Errors.UseProblemDetails();
-		c.Endpoints.RoutePrefix = "api";
-		c.Versioning.Prefix = "v";
-		c.Versioning.PrependToRoute = true;
-	});
+	app
+		.UseDefaultExceptionHandler()
+		.UseFastEndpoints(c => {
+			c.Errors.UseProblemDetails();
+			c.Endpoints.RoutePrefix = "api";
+			c.Versioning.Prefix = "v";
+			c.Versioning.PrependToRoute = true;
+		});
 	app.UseSwaggerGen();
 	app.UseHttpRequestsLogging();
 
+	await WarmUp.RunAsync(app);
 	await app.RunAsync();
 }

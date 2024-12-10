@@ -4,6 +4,7 @@
 - Automapper
 - [Automapper extension](https://github.com/noncommunicado/KutCode.AutoMapper.Extensions)
 - Serilog
+- EFCore + NamingConventions
 
 ## Build
 

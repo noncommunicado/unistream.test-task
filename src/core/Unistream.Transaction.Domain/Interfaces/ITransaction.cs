@@ -1,4 +1,4 @@
-namespace Unistream.Transaction.Domain.Models.Transaction;
+namespace Unistream.Transaction.Domain.Interfaces;
 
 public interface ITransaction
 {
