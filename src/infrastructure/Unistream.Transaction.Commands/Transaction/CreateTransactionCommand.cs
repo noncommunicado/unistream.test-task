@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Unistream.Transaction.Domain.Exceptions;
 using Unistream.Transaction.Domain.Interfaces;
-using Unistream.Transaction.Domain.SharedModels;
 using Unistream.Transaction.Persistence.Database;
 using Unistream.Transaction.Persistence.Entities;
 using Unistream.Transaction.Services;
 
 namespace Unistream.Transaction.Commands.Transaction;
 
+public sealed record InsertTransactionResult(decimal ClientBalance, DateTime InsertDateTime);
 public sealed record CreateTransactionCommand
-	: ITransaction, IMapTo<TransactionEntity>, IRequest<InsertCommandResult>
+	: ITransaction, IMapTo<TransactionEntity>, IRequest<InsertTransactionResult>
 {
 	public Guid Id { get; set; }
 	public Guid ClientId { get; set; }
@@ -20,7 +20,7 @@ public sealed record CreateTransactionCommand
 	public decimal Amount { get; set; }
 }
 
-public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, InsertCommandResult>
+public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, InsertTransactionResult>
 {
 	private readonly MainDbContext _context;
 	private readonly IMapper _mapper;
@@ -37,7 +37,7 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
 		_mapper = mapper;
 	}
 
-	public async Task<InsertCommandResult> Handle(CreateTransactionCommand request, CancellationToken ct)
+	public async Task<InsertTransactionResult> Handle(CreateTransactionCommand request, CancellationToken ct)
 	{
 		var transactionEntity = _mapper.Map<TransactionEntity>(request);
 		var opDateTime = DateTime.UtcNow;
@@ -50,7 +50,7 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
 			.Select(x => new {x.Id, CurrentBalance = x.UpdatedBalance, x.SysCreated})
 			.SingleOrDefaultAsync(x => x.Id == request.Id);
 		if (existed is not null)
-			return new InsertCommandResult(existed.CurrentBalance, existed.SysCreated);
+			return new InsertTransactionResult(existed.CurrentBalance, existed.SysCreated);
 
 		// check for Insufficient Balance
 		var currentBalance = await _context.Balances.AsNoTracking()
@@ -63,7 +63,7 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
 		return await ProccessTransactionAsync(request, currentBalance, opDateTime, transactionEntity, ct);
 	}
 
-	private async Task<InsertCommandResult> ProccessTransactionAsync(
+	private async Task<InsertTransactionResult> ProccessTransactionAsync(
 		CreateTransactionCommand request,
 		ClientBalanceEntity? clientBalance,
 		DateTime opDateTime,
@@ -102,7 +102,7 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
 			await _context.AddAsync(transactionEntity, ct);
 			await _context.SaveChangesAsync(ct);
 			await transaction.CommitAsync(ct);
-			return new InsertCommandResult(clientBalance.Balanace, opDateTime);
+			return new InsertTransactionResult(clientBalance.Balanace, opDateTime);
 		}
 		catch {
 			await transaction.RollbackAsync(ct);

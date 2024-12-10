@@ -5,6 +5,8 @@ namespace Unistream.Transaction.Services.ClientSyncContext;
 
 /// <summary>
 ///     Данный класс призван чтобы организовать легковесную блокировку вне базы данных.
+///		И, соответственно, не вызывать тяжеловесную блокировку в СУБД, да еще и на несколько таблиц,
+///		при текущей архитектуре
 /// </summary>
 public class InMemoryLockerProvider : ILockerProvider<Guid>
 {

@@ -1,1 +1,0 @@
- docker buildx build --platform linux/amd64 -t noncommunicado/unistream-test-4:latest .
